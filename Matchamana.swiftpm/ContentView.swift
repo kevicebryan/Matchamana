@@ -27,7 +27,6 @@ struct ContentView: View {
                             .scaleEffect(0.75)
                     }
                 }
-
             }
             .padding(100)
         }

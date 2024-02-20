@@ -30,27 +30,27 @@ struct Step1View: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 200)
-
-                    }.gesture(TapGesture().onEnded {
-                        Matchamana.shared.powder = "culinary"
+                    }
+                    .simultaneousGesture(TapGesture().onEnded {
+                        Matchamana.shared.powder = .culinary
                     })
 
-                    NavigationLink(destination: Step3View()) {
+                    NavigationLink(destination: Step2View()) {
                         Image("Matcha Box Premium")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 200)
-                    }.gesture(TapGesture().onEnded {
-                        Matchamana.shared.powder = "premium"
+                    }.simultaneousGesture(TapGesture().onEnded {
+                        Matchamana.shared.powder = .premium
                     })
 
-                    NavigationLink(destination: Step4View()) {
+                    NavigationLink(destination: Step2View()) {
                         Image("Matcha Box Ceremonial")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 200)
-                    }.gesture(TapGesture().onEnded {
-                        Matchamana.shared.powder = "ceremenial"
+                    }.simultaneousGesture(TapGesture().onEnded {
+                        Matchamana.shared.powder = .ceremonial
                     })
 
                 }.padding(.bottom, -8)

@@ -10,5 +10,11 @@ import Foundation
 struct Matchamana {
     static var shared = Matchamana()
 
-    var powder: String = "ceremonial"
+    var powder: MatchaPowder = .ceremonial
+}
+
+enum MatchaPowder: String {
+    case ceremonial = "Ceremonial"
+    case culinary = "Culinary"
+    case premium = "Premium"
 }

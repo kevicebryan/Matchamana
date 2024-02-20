@@ -20,7 +20,7 @@ let package = Package(
             teamIdentifier: "DVSPNNP5A3",
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .asset("AppIcon"),
+            appIcon: .placeholder(icon: .cloud),
             accentColor: .presetColor(.green),
             supportedDeviceFamilies: [
                 .pad,
