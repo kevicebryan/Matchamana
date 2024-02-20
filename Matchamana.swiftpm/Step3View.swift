@@ -9,6 +9,8 @@ import SpriteKit
 import SwiftUI
 
 struct Step3View: View {
+    @ObservedObject var matchamana = Matchamana.shared
+
     var gameScene: SKScene {
         let gameScene = Step3GameScene()
         gameScene.size = CGSize(width: 600, height: 600)
@@ -36,10 +38,30 @@ struct Step3View: View {
             .background(.background)
             .zIndex(2)
 
-            VStack(spacing: 0) {
+            ZStack {
                 SpriteView(scene: gameScene)
                     .scaledToFit()
                     .ignoresSafeArea()
+
+                if matchamana.step3Done {
+                    NavigationLink(destination: Step4View()) {
+                        Text("Next Step")
+                            .font(.largeTitle)
+                            .padding(.horizontal, 40)
+                            .padding(.vertical, 12)
+                            .background(Color("Accent"))
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                    }
+                    .padding(.bottom, 320)
+                }
+
+                Text("Whisk from\nhere     to      here").multilineTextAlignment(.center)
+                    .font(.system(size: 20,
+                                  weight: .semibold,
+                                  design: .monospaced))
+                    .padding(.top, -60)
+                    .padding(.trailing, 120)
             }
             .frame(width: UIScreen.main.bounds.width, height: 600)
             .background(.white)

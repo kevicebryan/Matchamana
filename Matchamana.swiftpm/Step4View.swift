@@ -9,6 +9,11 @@ import SpriteKit
 import SwiftUI
 
 struct Step4View: View {
+    @ObservedObject var matchamana = Matchamana.shared
+//    @State private var isFinish = true
+
+    @State var imageName: String = ""
+
     var gameScene: SKScene {
         let gameScene = Step4GameScene()
         gameScene.size = CGSize(width: 600, height: 600)
@@ -19,34 +24,87 @@ struct Step4View: View {
 
     var body: some View {
         VStack {
-            Text("Step 4")
-                .font(.system(size: 60))
-                .padding(.top, 50)
+            if !matchamana.step4Done {
+                ZStack {
+                    VStack {
+                        VStack {
+                            Text("Teariffic")
+                                .font(.system(size: 80, weight: .regular, design: .monospaced))
+                            Text("congrats on creating your very own matcha!")
+                                .font(.system(size: 20, weight: .bold, design: .monospaced))
+                                .foregroundStyle(Color("Accent"))
+                        }
+                        .frame(width: 600, height: 400)
+                        .background(Color("NoteBackground"))
+                        .padding(.bottom, 300)
 
-            HStack(spacing: 40) {
-                StepsComponent(currentStep: 4)
-                    .padding(40)
-                    .offset(x: 25)
+                        Image("Glass Ice Matcha Latte \(matchamana.powder.rawValue)")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 400)
 
-                NoteComponent(
-                    header: "Almost done",
-                    instruction: "Add the matcha and remaining ingredients into a glass!",
-                    note: "matcha is best enjoyed with plant-based milk e.g. oat, soy and almond")
+                        Rectangle().frame(width: .infinity, height: 20)
+                            .padding(.top, -8)
+                            .padding(.bottom, 20)
 
-                    .padding(40)
+                        NavigationLink(
+                            destination: ContentView(),
+                            label: {
+                                Text("Star Over")
+                                    .padding(.horizontal, 40)
+                                    .padding(.vertical, 10)
+                                    .background(Color("Accent"))
+                                    .cornerRadius(12)
+                                    .foregroundColor(.white)
+                                    .font(.title)
+                            }
+                        ).navigationBarBackButtonHidden(true)
+                    }
+                    CircularText(radius: 160, text: "Enjoy your self-made matcha latte!")
+                        .scaleEffect(2)
+                        .padding(.top, 600)
+                }
+            } else {
+                VStack {
+                    Text("Step 4")
+                        .font(.system(size: 60))
+                        .padding(.top, 50)
+
+                    HStack(spacing: 40) {
+                        StepsComponent(currentStep: 4)
+                            .padding(40)
+                            .offset(x: 25)
+
+                        NoteComponent(
+                            header: "Almost done",
+                            instruction: "Add the matcha and remaining ingredients into a glass!",
+                            note: "matcha is best enjoyed with plant-based milk e.g. oat, soy and almond"
+                        )
+
+                        .padding(40)
+                    }
+                    .background(.background)
+                    .zIndex(2)
+
+                    ZStack {
+                        SpriteView(scene: gameScene)
+                            .scaledToFit()
+                            .ignoresSafeArea()
+
+                        Text("A 1:1 ratio is the best for matcha latte\n100ml matcha & 100ml milk")
+                            .multilineTextAlignment(.center)
+                            .font(.system(size: 15, weight: .semibold, design: .monospaced))
+                            .padding(.top, 400)
+                    }
+                    .frame(width: UIScreen.main.bounds.width, height: 600)
+                    .background(.white)
+                    .zIndex(1.0)
+                }
             }
-            .background(.background)
-            .zIndex(2)
-
-            VStack(spacing: 0) {
-                SpriteView(scene: gameScene)
-                    .scaledToFit()
-                    .ignoresSafeArea()
+        }.animation(.easeIn(duration: 0.5), value: matchamana.step4Done)
+            .onAppear {
+                imageName = "Glass Ice Matcha Latte \(matchamana.powder.rawValue)"
             }
-            .frame(width: UIScreen.main.bounds.width, height: 600)
-            .background(.white)
-            .zIndex(1.0)
-        }
     }
 }
 

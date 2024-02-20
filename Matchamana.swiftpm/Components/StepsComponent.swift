@@ -30,7 +30,7 @@ struct StepsComponent: View {
             Circle()
                 .fill(currentStep == 2 ? Color("Background") : Color.black)
                 .overlay(
-                    Image("Bowl")
+                    Image("Bowl Done 2")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 24, height: 24))

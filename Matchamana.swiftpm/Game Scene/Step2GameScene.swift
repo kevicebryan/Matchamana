@@ -216,8 +216,6 @@ class Step2GameScene: SKScene {
         hitZoneNode = SKShapeNode(rectOf: hitZoneSize)
         hitZoneNode.position = CGPoint(x: bowlNode.position.x,
                                        y: bowlNode.position.y + 120)
-//        hitZoneNode.strokeColor = .clear
-//        hitZoneNode.fillColor = .green // Color of the hit zone for visualization
         hitZoneNode.zPosition = -1
         addChild(hitZoneNode)
     }
