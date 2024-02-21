@@ -69,7 +69,7 @@ struct Step2View: View {
                                       weight: .semibold,
                                       design: .monospaced))
 
-                    Text("hot water (80°C)")
+                    Text("200ml of hot water ")
                         .font(.system(size: 13,
                                       weight: .semibold,
                                       design: .monospaced))
@@ -77,6 +77,13 @@ struct Step2View: View {
                 }
                 .padding(.top, 400)
                 .padding(.leading, 220)
+
+                Text("'pour here'")
+                    .padding(.trailing, 200)
+                    .font(.system(size: 10,
+                                  weight: .semibold,
+                                  design: .monospaced))
+                    .italic()
             }
             .frame(width: UIScreen.main.bounds.width, height: 600)
             .background(.white)

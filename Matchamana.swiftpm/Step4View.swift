@@ -13,6 +13,7 @@ struct Step4View: View {
 //    @State private var isFinish = true
 
     @State var imageName: String = ""
+    @State private var isRotating = -360.0
 
     var gameScene: SKScene {
         let gameScene = Step4GameScene()
@@ -24,47 +25,71 @@ struct Step4View: View {
 
     var body: some View {
         VStack {
-            if !matchamana.step4Done {
+            if matchamana.step4Done {
                 ZStack {
+                    CircularText(radius: 160, text: "Enjoy your self-made matcha latte!")
+                        .rotationEffect(.degrees(isRotating))
+                        .onAppear {
+                            withAnimation(.linear(duration: 12)
+                                .repeatForever(autoreverses: false))
+                            {
+                                isRotating = 0
+                            }
+                        }
+                        .scaleEffect(2.1)
+                        .padding(.top, 650)
+
                     VStack {
+                        Spacer()
+
                         VStack {
                             Text("Teariffic")
-                                .font(.system(size: 80, weight: .regular, design: .monospaced))
+                                .font(.system(size: 100, weight: .regular, design: .monospaced))
                             Text("congrats on creating your very own matcha!")
                                 .font(.system(size: 20, weight: .bold, design: .monospaced))
                                 .foregroundStyle(Color("Accent"))
                         }
                         .frame(width: 600, height: 400)
-                        .background(Color("NoteBackground"))
-                        .padding(.bottom, 300)
+                        .padding(.bottom, 120)
+
+                        Spacer()
 
                         Image("Glass Ice Matcha Latte \(matchamana.powder.rawValue)")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 400)
+                            .frame(width: 450)
 
-                        Rectangle().frame(width: .infinity, height: 20)
+                        Rectangle().frame(width: UIScreen.main.bounds.width,
+                                          height: 20)
                             .padding(.top, -8)
-                            .padding(.bottom, 20)
+                            .padding(.bottom, -8)
+                            .zIndex(2)
 
-                        NavigationLink(
-                            destination: ContentView(),
-                            label: {
-                                Text("Star Over")
-                                    .padding(.horizontal, 40)
-                                    .padding(.vertical, 10)
-                                    .background(Color("Accent"))
-                                    .cornerRadius(12)
-                                    .foregroundColor(.white)
-                                    .font(.title)
-                            }
-                        ).navigationBarBackButtonHidden(true)
+                        ZStack {
+                            NavigationLink(
+                                destination: ContentView(),
+                                label: {
+                                    Text("Star Over")
+                                        .padding(.horizontal, 40)
+                                        .padding(.vertical, 10)
+                                        .background(Color("Accent"))
+                                        .cornerRadius(12)
+                                        .foregroundColor(.white)
+                                        .font(.title)
+                                }
+                            ).navigationBarBackButtonHidden(true)
+                                .simultaneousGesture(TapGesture().onEnded {
+                                    matchamana.step2Done = false
+                                    matchamana.step3Done = false
+                                    matchamana.step4Done = false
+                                })
+                        }
+                        .frame(width: UIScreen.main.bounds.width, height: 120)
+                        .background(.background)
                     }
-                    CircularText(radius: 160, text: "Enjoy your self-made matcha latte!")
-                        .scaleEffect(2)
-                        .padding(.top, 600)
                 }
-            } else {
+            }
+            else {
                 VStack {
                     Text("Step 4")
                         .font(.system(size: 60))
@@ -95,13 +120,25 @@ struct Step4View: View {
                             .multilineTextAlignment(.center)
                             .font(.system(size: 15, weight: .semibold, design: .monospaced))
                             .padding(.top, 400)
+
+                        HStack(spacing: 40) {
+                            Text("200ml of matcha")
+                                .font(.system(size: 15, weight: .semibold, design: .monospaced))
+                                .rotationEffect(.degrees(15))
+                                .padding(.top, 60)
+
+                            Text("200ml of oatmilk")
+                                .font(.system(size: 15, weight: .semibold, design: .monospaced))
+                                .rotationEffect(.degrees(15))
+                                .padding(.top, -150)
+                        }.padding(.leading, 280)
                     }
                     .frame(width: UIScreen.main.bounds.width, height: 600)
                     .background(.white)
                     .zIndex(1.0)
                 }
             }
-        }.animation(.easeIn(duration: 0.5), value: matchamana.step4Done)
+        }.animation(.easeIn(duration: 0.8), value: matchamana.step4Done)
             .onAppear {
                 imageName = "Glass Ice Matcha Latte \(matchamana.powder.rawValue)"
             }

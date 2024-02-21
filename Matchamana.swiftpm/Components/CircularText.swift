@@ -24,7 +24,7 @@ struct CircularText: View {
                 VStack {
                     Text(String(element))
                         .font(.system(size: 20, weight: .bold, design: .monospaced))
-                        .foregroundColor(Color("Accent"))
+                        .foregroundColor(.primary)
                         .kerning(self.kerning)
                         .background(Sizeable())
                         .onPreferenceChange(WidthPreferenceKey.self, perform: { size in
